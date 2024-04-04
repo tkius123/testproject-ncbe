@@ -14,8 +14,6 @@ public class Employee {
 
     private EmployeeType type;
 
-    private int hoursWorked;
-
     private boolean isFullTime;
 
     @ManyToOne
