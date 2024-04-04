@@ -43,7 +43,7 @@ public class PayrollService {
     // return payments for given week for all employees. key is employee id, value is payment
     // return 0 if no work log
     public Map<Long, Double> getPaymentsByEmployee(Long weekId) {
-        Map<Long, Double> map = workLogRepository.findByWeekId(weekId).stream().collect(
+        Map<Long, Double> map = workLogRepository.findByWeekLongId(weekId).stream().collect(
                 Collectors.toMap(wl -> wl.getEmployee().getId(), this::calculatePay, Double::sum)
         );
 
@@ -55,7 +55,7 @@ public class PayrollService {
     // key is department name, value is payment
     // return 0 if no work log
     public LinkedHashMap<String, Double> getPaymentsByDepartmentSorted(Long weekId) {
-        Map<String, Double> map = workLogRepository.findByWeekId(weekId).stream().collect(
+        Map<String, Double> map = workLogRepository.findByWeekLongId(weekId).stream().collect(
                 Collectors.groupingBy(wl -> wl.getEmployee().getDepartment().getName(), Collectors.summingDouble(this::calculatePay))
         );
 
@@ -77,8 +77,8 @@ public class PayrollService {
 
     private double calculatePay(WorkLog workLog) {
         double baseRate = baseRates.get(workLog.getEmployee().getType());
-        int regularHours = Math.min(workLog.getHoursWorked(), 40);
-        int overtimeHours = Math.max(workLog.getHoursWorked() - 40, 0);
+        double regularHours = Math.min(workLog.getHoursWorked(), 40);
+        double overtimeHours = Math.max(workLog.getHoursWorked() - 40, 0);
 
         double regularPay = regularHours * baseRate;
         double overtimePay = overtimeHours * baseRate * overtimeMultiplier;

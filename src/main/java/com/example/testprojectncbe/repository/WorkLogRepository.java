@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface WorkLogRepository extends JpaRepository<WorkLog, Long> {
-    List<WorkLog> findByWeekId(Long weekId);
+    List<WorkLog> findByWeekLongId(Long weekId);
 }

@@ -1,37 +1,65 @@
--- Insert Departments
-INSERT INTO department (name) VALUES ('Engineering');
-INSERT INTO department (name) VALUES ('Human Resources');
-INSERT INTO department (name) VALUES ('Marketing');
+-- Insert sample departments
+INSERT INTO department (name) VALUES
+                                  ('Sales'),
+                                  ('Marketing'),
+                                  ('Finance'),
+                                  ('Human Resources'),
+                                  ('Information Technology');
 
--- Insert Employees
--- Engineering Department
-INSERT INTO employee (name, type, is_full_time, department_id) VALUES ('Alice', 'MANAGER', true, (SELECT id FROM department WHERE name ='Engineering' LIMIT 1));
-INSERT INTO employee (name, type, is_full_time, department_id) VALUES ('Bob', 'FLOOR_WORKER', true, (SELECT id FROM department WHERE name ='Engineering' LIMIT 1));
-INSERT INTO employee (name, type, is_full_time, department_id) VALUES ('Max', 'SUPERVISOR', true, (SELECT id FROM department WHERE name ='Engineering' LIMIT 1));
-INSERT INTO employee (name, type, is_full_time, department_id) VALUES ('Nina', 'INTERN', true, (SELECT id FROM department WHERE name ='Engineering' LIMIT 1));
+-- Insert sample employees
+INSERT INTO employee (name, type, is_full_time, department_id) VALUES
+                                                                   ('John Doe', 'FLOOR_WORKER', true, 1),
+                                                                   ('Jane Smith', 'INTERN', false, 2),
+                                                                   ('Michael Johnson', 'MANAGER', true, 3),
+                                                                   ('Emily Davis', 'SUPERVISOR', true, 1),
+                                                                   ('David Brown', 'FLOOR_WORKER', true, 2),
+                                                                   ('Sarah Wilson', 'MANAGER', false, 3),
+                                                                   ('Chris Lee', 'INTERN', true, 4),
+                                                                   ('Jennifer Taylor', 'EXECUTIVE', true, 5),
+                                                                   ('Matthew Anderson', 'FLOOR_WORKER', true, 1),
+                                                                   ('Amanda Martinez', 'MANAGER', true, 2),
+                                                                   ('James Rodriguez', 'SUPERVISOR', false, 3),
+                                                                   ('Olivia Hernandez', 'FLOOR_WORKER', true, 4),
+                                                                   ('Sophia Wright', 'INTERN', true, 5),
+                                                                   ('Logan Green', 'MANAGER', false, 1),
+                                                                   ('Liam Hill', 'EXECUTIVE', true, 2),
+                                                                   ('Ethan Adams', 'FLOOR_WORKER', true, 3),
+                                                                   ('Isabella Baker', 'MANAGER', true, 4),
+                                                                   ('William Carter', 'FLOOR_WORKER', false, 5),
+                                                                   ('Evelyn Foster', 'INTERN', true, 1);
 
--- Human Resources Department
-INSERT INTO employee (name, type, is_full_time, department_id) VALUES ('Charlie', 'MANAGER', true, (SELECT id FROM department WHERE name ='Human Resources' LIMIT 1));
-INSERT INTO employee (name, type, is_full_time, department_id) VALUES ('Diana', 'FLOOR_WORKER', false, (SELECT id FROM department WHERE name ='Human Resources' LIMIT 1));
-INSERT INTO employee (name, type, is_full_time, department_id) VALUES ('Oliver', 'SUPERVISOR', true, (SELECT id FROM department WHERE name ='Human Resources' LIMIT 1));
-INSERT INTO employee (name, type, is_full_time, department_id) VALUES ('Liam', 'INTERN', true, (SELECT id FROM department WHERE name ='Human Resources' LIMIT 1));
+-- Insert sample week long entries
+INSERT INTO week_long (week_start, week_end) VALUES
+                                                 ('2024-01-01', '2024-01-07'),
+                                                 ('2024-01-08', '2024-01-14'),
+                                                 ('2024-01-15', '2024-01-21'),
+                                                 ('2024-01-22', '2024-01-28'),
+                                                 ('2024-01-29', '2024-02-04'),
+                                                 ('2024-02-05', '2024-02-11'),
+                                                 ('2024-02-12', '2024-02-18'),
+                                                 ('2024-02-19', '2024-02-25'),
+                                                 ('2024-02-26', '2024-03-03'),
+                                                 ('2024-03-04', '2024-03-10');
 
--- Marketing Department
-INSERT INTO employee (name, type, is_full_time, department_id) VALUES ('Eve', 'MANAGER', true, (SELECT id FROM department WHERE name ='Marketing' LIMIT 1));
-INSERT INTO employee (name, type, is_full_time, department_id) VALUES ('Frank', 'FLOOR_WORKER', false, (SELECT id FROM department WHERE name ='Marketing' LIMIT 1));
-INSERT INTO employee (name, type, is_full_time, department_id) VALUES ('Sophia', 'SUPERVISOR', true, (SELECT id FROM department WHERE name ='Marketing' LIMIT 1));
-INSERT INTO employee (name, type, is_full_time, department_id) VALUES ('Mia', 'INTERN', true, (SELECT id FROM department WHERE name ='Marketing' LIMIT 1));
+-- Insert sample work logs
+INSERT INTO work_log (week_long_id, employee_id, hours_worked) VALUES
+                                                                   (1, 1, 40),
+                                                                   (1, 2, 20),
+                                                                   (2, 3, 35),
+                                                                   (2, 4, 30),
+                                                                   (3, 5, 25),
+                                                                   (3, 6, 15),
+                                                                   (4, 7, 40),
+                                                                   (4, 8, 20),
+                                                                   (5, 9, 35),
+                                                                   (5, 10, 30),
+                                                                   (6, 11, 25),
+                                                                   (6, 12, 15),
+                                                                   (7, 13, 40),
+                                                                   (7, 14, 20),
+                                                                   (8, 15, 35),
+                                                                   (8, 16, 30),
+                                                                   (9, 17, 25),
+                                                                   (9, 18, 15),
+                                                                   (10, 19, 40);
 
--- Executive across departments
-INSERT INTO employee (name, type, is_full_time, department_id) VALUES ('Isabella', 'EXECUTIVE', true, (SELECT id FROM department WHERE name ='Engineering' LIMIT 1));
-INSERT INTO employee (name, type, is_full_time, department_id) VALUES ('Ethan', 'EXECUTIVE', true, (SELECT id FROM department WHERE name ='Human Resources' LIMIT 1));
-INSERT INTO employee (name, type, is_full_time, department_id) VALUES ('Lucas', 'EXECUTIVE', true, (SELECT id FROM department WHERE name ='Marketing' LIMIT 1));
-
--- Insert WorkLogs for a specific week (week_id = 1)
--- Week of January 1, 2024 to January 7, 2024
-INSERT INTO work_log (week_id, week_start, week_end, hours_worked, employee_id) VALUES (1, '2024-01-01', '2024-01-07', 40, (SELECT id FROM employee WHERE name ='Alice' LIMIT 1));
-INSERT INTO work_log (week_id, week_start, week_end, hours_worked, employee_id) VALUES (1, '2024-01-01', '2024-01-07', 42, (SELECT id FROM employee WHERE name ='Bob' LIMIT 1));
-INSERT INTO work_log (week_id, week_start, week_end, hours_worked, employee_id) VALUES (1, '2024-01-01', '2024-01-07', 38, (SELECT id FROM employee WHERE name ='Charlie' LIMIT 1));
-INSERT INTO work_log (week_id, week_start, week_end, hours_worked, employee_id) VALUES (1, '2024-01-01', '2024-01-07', 20, (SELECT id FROM employee WHERE name ='Diana' LIMIT 1));
-INSERT INTO work_log (week_id, week_start, week_end, hours_worked, employee_id) VALUES (1, '2024-01-01', '2024-01-07', 40, (SELECT id FROM employee WHERE name ='Eve' LIMIT 1));
-INSERT INTO work_log (week_id, week_start, week_end, hours_worked, employee_id) VALUES (1, '2024-01-01', '2024-01-07', 25, (SELECT id FROM employee WHERE name ='Frank' LIMIT 1));

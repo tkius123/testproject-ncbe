@@ -3,8 +3,6 @@ package com.example.testprojectncbe.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDate;
-
 @Entity
 @Data
 public class WorkLog {
@@ -12,10 +10,11 @@ public class WorkLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int weekId;
+    @ManyToOne
+    private WeekLong weekLong;
 
     @ManyToOne
     private Employee employee;
 
-    private int hoursWorked;
+    private double hoursWorked;
 }
