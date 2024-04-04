@@ -13,8 +13,6 @@ public class WorkLog {
     private Long id;
 
     private int weekId;
-    private LocalDate weekStart;
-    private LocalDate weekEnd;
 
     @ManyToOne
     private Employee employee;
