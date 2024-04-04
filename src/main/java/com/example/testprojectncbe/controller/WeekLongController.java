@@ -2,6 +2,9 @@ package com.example.testprojectncbe.controller;
 
 import com.example.testprojectncbe.model.WeekLong;
 import com.example.testprojectncbe.repository.WeekLongRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,8 +53,11 @@ public class WeekLongController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @Operation(summary = "Get Week ID by Date", description = "Returns the ID of the week containing the provided date.")
     @GetMapping("/weekId")
-    public ResponseEntity<Long> getWeekIdByDate(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public ResponseEntity<Long> getWeekIdByDate(
+            @Parameter(description = "Date in the format yyyy-MM-dd", example = "2024-01-01", in = ParameterIn.QUERY)
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         Long weekId = weekLongRepository.findWeekIdByDate(date);
         if (weekId != null) {
             return new ResponseEntity<>(weekId, HttpStatus.OK);
