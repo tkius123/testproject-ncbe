@@ -1,5 +1,6 @@
 package com.example.testprojectncbe.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,9 +13,11 @@ public class Employee {
 
     private String name;
 
+    @Enumerated(EnumType.STRING)
     private EmployeeType type;
 
-    private boolean isFullTime;
+    @Nullable
+    private Boolean isFullTime;
 
     @ManyToOne
     private Department department;
